@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      WebSocket Demo
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Username</ion-label>
+    <ion-input [(ngModel)]="username" type="text" placeholder="Enter your username"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Password</ion-label>
+    <ion-input [(ngModel)]="password" type="password" placeholder="Enter your password"></ion-input>
+  </ion-item>
+  <ion-button (click)="login()">Login</ion-button>
+  <ion-button (click)="logout()">Logout</ion-button>
+
+  <ion-button (click)="refreshUsers()">Refresh Users</ion-button>
+  <ion-select placeholder="Select a user" [(ngModel)]="selectedUserId" (ionChange)="onUserChange($event)">
+    <ion-select-option *ngFor="let user of users" [value]="user.id">{{ user.username }}</ion-select-option>
+  </ion-select>
+  
+  <ion-item>
+    <ion-label position="floating">Message</ion-label>
+    <ion-input [(ngModel)]="message" placeholder="Message"></ion-input>
+  </ion-item>
+  <ion-button (click)="sendMessage()">Send Message</ion-button>
+  
+  <pre>{{ messages }}</pre>
+</ion-content>
