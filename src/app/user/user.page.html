@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>User</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+  <form [formGroup]="userForm">
+    <ion-item>
+      <ion-label position="floating">User ID</ion-label>
+      <ion-input formControlName="userId" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Username</ion-label>
+      <ion-input formControlName="username" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Token</ion-label>
+      <ion-input formControlName="token" type="text"></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" (click)="saveUser()">Save User</ion-button>
+  </form>
+</ion-content>

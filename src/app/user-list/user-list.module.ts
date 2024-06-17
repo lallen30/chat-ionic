@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { WebsocketPageRoutingModule } from './websocket-routing.module';
+import { UserListPageRoutingModule } from './user-list-routing.module';
 
-import { WebsocketPage } from './websocket.page';
+import { UserListPage } from './user-list.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    WebsocketPageRoutingModule
+    UserListPageRoutingModule
   ],
-  declarations: [WebsocketPage]
+  declarations: [UserListPage]
 })
-export class WebsocketPageModule {}
+export class UserListPageModule {}

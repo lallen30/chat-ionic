@@ -8,9 +8,13 @@ import { Router } from '@angular/router';
 })
 export class HomePage {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
-  goToWebSocketPage() {
-    this.router.navigate(['/websocket']);
+  goToUserPage() {
+    this.router.navigate(['/user']);
+  }
+
+  userList() {
+    this.router.navigate(['/user-list']);
   }
 }

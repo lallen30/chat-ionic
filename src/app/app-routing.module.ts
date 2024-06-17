@@ -7,8 +7,16 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
-    path: 'websocket',
-    loadChildren: () => import('./websocket/websocket.module').then(m => m.WebsocketPageModule)
+    path: 'user-list',
+    loadChildren: () => import('./user-list/user-list.module').then(m => m.UserListPageModule)
+  },
+  {
+    path: 'chat/:threadId',
+    loadChildren: () => import('./chat/chat.module').then(m => m.ChatPageModule)
+  },
+  {
+    path: 'user',
+    loadChildren: () => import('./user/user.module').then(m => m.UserPageModule)
   }
 ];
 

@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/user-list"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ username }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="messages-container">
+    <div *ngFor="let msg of messages"
+      [ngClass]="{'my-message-container': msg.senderId === userId, 'other-message-container': msg.senderId !== userId}">
+      <p [ngClass]="{'my-message': msg.senderId === userId, 'other-message': msg.senderId !== userId}">
+        {{ msg.content }}
+      </p>
+    </div>
+  </div>
+  <ion-item>
+    <ion-input #messageInput placeholder="Type a message"></ion-input>
+    <ion-button slot="end" (click)="sendMessage()">Send</ion-button>
+  </ion-item>
+</ion-content>

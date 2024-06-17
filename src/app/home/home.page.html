@@ -14,6 +14,13 @@
   </ion-header>
 
   <div id="container">
-    <ion-button (click)="goToWebSocketPage()">Go to WebSocket Page</ion-button>
+    <ion-item>
+      <ion-label (click)="goToUserPage()">Set up User</ion-label>
+      <ion-icon name="person-add" slot="end"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-label (click)="userList()">Go to Users Page</ion-label>
+      <ion-icon name="people" slot="end"></ion-icon>
+    </ion-item>
   </div>
 </ion-content>

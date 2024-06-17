@@ -1,0 +1,28 @@
+.messages-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.my-message-container {
+  align-self: flex-end;
+  background-color: #cce5ff;
+  border-radius: 10px;
+  padding: 5px 10px;
+  margin: 5px 0;
+}
+
+.other-message-container {
+  align-self: flex-start;
+  background-color: #d4edda;
+  border-radius: 10px;
+  padding: 5px 10px;
+  margin: 5px 0;
+}
+
+.my-message {
+  color: #004085;
+}
+
+.other-message {
+  color: #155724;
+}
