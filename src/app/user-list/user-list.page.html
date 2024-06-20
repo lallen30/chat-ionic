@@ -7,11 +7,12 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let user of users" (click)="selectUser(user.id, user.username)">
-      {{ user.username }}
-    </ion-item>
+    <ng-container *ngFor="let user of users">
+      <ion-item *ngIf="user.id !== loggedInUserId" (click)="selectUser(user.id, user.username)">
+        {{ user.username }}
+      </ion-item>
+    </ng-container>
   </ion-list>
 </ion-content>

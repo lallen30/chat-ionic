@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { WebsocketService } from '../services/websocket.service';
 import { Router } from '@angular/router';
 import { Preferences } from '@capacitor/preferences';
+import { HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-user-list',
@@ -10,11 +13,20 @@ import { Preferences } from '@capacitor/preferences';
 })
 export class UserListPage implements OnInit {
   users: any[] = [];
+  loggedInUserId: number | null = null; // Add this line to store the logged-in user ID
 
-  constructor(private websocketService: WebsocketService, private router: Router) { }
+  constructor(
+    private websocketService: WebsocketService,
+    private router: Router,
+    private http: HttpClient
+  ) { }
 
   ngOnInit() {
-    this.refreshUsers();
+    this.checkAndSubmitUser();
+    this.getLoggedInUser().then((user) => {
+      this.loggedInUserId = user.user_id; // Set the logged-in user ID
+      this.refreshUsers();
+    });
   }
 
   refreshUsers() {
@@ -31,7 +43,9 @@ export class UserListPage implements OnInit {
   async getLoggedInUser() {
     const { value } = await Preferences.get({ key: 'user' });
     if (value) {
-      return JSON.parse(value);
+      const user = JSON.parse(value);
+      console.log('Logged in user data:', user); // Add this line for logging
+      return user;
     }
     throw new Error('User not found');
   }
@@ -58,6 +72,37 @@ export class UserListPage implements OnInit {
       );
     }).catch(error => {
       console.error('Error getting logged in user:', error);
+    });
+  }
+
+  private checkAndSubmitUser() {
+    this.getLoggedInUser().then((user) => {
+      const userPayload = {
+        id: user.user_id,
+        username: user.display_name,
+        email: user.user_email,
+        token: user.token
+      };
+
+      // Add logging for payload
+      console.log('Submitting user payload:', userPayload);
+
+      // Check if any required fields are missing
+      if (!userPayload.id || !userPayload.username || !userPayload.email || !userPayload.token) {
+        console.error('Missing required fields in user payload:', userPayload);
+        return; // Early exit if validation fails
+      }
+
+      this.http.post('http://174.177.123.253:3107/api/v1/users/check_user', userPayload).pipe(
+        catchError((error) => {
+          console.error('Error checking/registering user:', error);
+          return throwError(() => new Error('Error checking/registering user'));
+        })
+      ).subscribe((response) => {
+        console.log('User check/registration response:', response);
+      });
+    }).catch(error => {
+      console.error('Error retrieving user from local storage:', error);
     });
   }
 }
